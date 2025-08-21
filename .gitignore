@@ -1,0 +1,21 @@
+# Eclipse workspace metadata
+.metadata/
+.settings/
+
+# Eclipse launch configurations
+*.launch
+
+# Compiled Java classes
+*.class
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
