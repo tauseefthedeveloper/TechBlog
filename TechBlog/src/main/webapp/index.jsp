@@ -83,7 +83,9 @@
 	<!--	<h1>Comment s</h1>
 	 	<div class="fb-comments" data-href="http://127.0.0.1:8080/TechBlog/index.jsp" data-width="100%" data-numposts="5"></div>
 	  -->
-	
+	<div>
+		<%@include file="footer.jsp" %>
+	</div>
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
 		integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
 		crossorigin="anonymous"></script>
