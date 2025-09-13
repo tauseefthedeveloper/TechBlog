@@ -9,11 +9,10 @@ public class ConnectionProvider {
 		try {
 			if(con==null) {
 				Class.forName("com.mysql.cj.jdbc.Driver");
-				con = DriverManager.getConnection(
-                        "jdbc:mysql://mysql-techblog.alwaysdata.net:3306/techblog_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC",
-                        "techblog",
-                        "Tauseef@123"
-                );
+				String url = System.getenv("DB_URL");
+				String user = System.getenv("DB_USER");
+				String pass = System.getenv("DB_PASS");
+				con = DriverManager.getConnection(url,user,pass);
 				//con=DriverManager.getConnection("jdbc:mysql://localhost:3306/techblog","root","tauseef@123");
 //				con=DriverManager.getConnection("jdbc:mysql://shuttle.proxy.rlwy.net:57034/railway?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC","root","HHHKxVraMEfhejiMEecIxTbHBIXNAfOY");
 			}else {
