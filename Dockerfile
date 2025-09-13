@@ -1,4 +1,4 @@
-FROM tomcat:10.1.13-jdk23
+FROM tomcat:10.1.13-jdk17
 RUN rm -rf /usr/local/tomcat/webapps/ROOT
 COPY TechBlog.war /usr/local/tomcat/webapps/ROOT.war
 EXPOSE 8080
