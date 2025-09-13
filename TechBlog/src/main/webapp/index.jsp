@@ -123,8 +123,9 @@
 					$('#post-container').show();
 					$('#post-container').html(data);
 				},
-				error:function(){
-					console.log("error")
+				error: function(jqXHR, textStatus, errorThrown){
+				    console.log("AJAX Error:", textStatus, errorThrown);
+				    console.log(jqXHR.responseText); // server-side error message
 				}
 			})
 	   }
