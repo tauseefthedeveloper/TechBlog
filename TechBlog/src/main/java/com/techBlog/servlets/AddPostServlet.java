@@ -3,18 +3,18 @@ package com.techBlog.servlets;
 import java.io.File;
 import java.io.IOException;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
-
 import com.techBlog.dao.PostDao;
 import com.techBlog.entities.Posts;
 import com.techBlog.entities.User;
 import com.techBlog.helper.Helper;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 
 @MultipartConfig
 public class AddPostServlet extends HttpServlet{
@@ -40,7 +40,7 @@ public class AddPostServlet extends HttpServlet{
 		Posts p=new Posts(title,content,code,null,pic.getSubmittedFileName(),CId,userId);
 		PostDao postDao=new PostDao();
 		if(postDao.savePosts(p)) {
-			String path=req.getRealPath("/")+"posts_pic"+File.separator+pic.getSubmittedFileName();
+			String path=req.getServletContext().getRealPath("/")+"posts_pic"+File.separator+pic.getSubmittedFileName();
 			Helper.saveFile(pic.getInputStream(), path);
 			resp.getWriter().println("done");
 			resp.sendRedirect("profile.jsp");

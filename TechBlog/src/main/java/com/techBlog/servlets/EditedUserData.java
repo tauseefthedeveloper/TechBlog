@@ -3,19 +3,19 @@ package com.techBlog.servlets;
 import java.io.File;
 import java.io.IOException;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
-
 import com.techBlog.dao.UserDao;
 import com.techBlog.entities.Message;
 import com.techBlog.entities.User;
 import com.techBlog.helper.ConnectionProvider;
 import com.techBlog.helper.Helper;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 
 @MultipartConfig
 public class EditedUserData extends HttpServlet{
@@ -49,8 +49,8 @@ public class EditedUserData extends HttpServlet{
 		UserDao userDao=new UserDao(ConnectionProvider.getConnection());
 		boolean f=userDao.updateUser(user);
 		if(f) {
-			String path=req.getRealPath("/")+"pic"+File.separator+user.getProfile();
-			String Oldpath=req.getRealPath("/")+"pic"+File.separator+oldProfile;
+			String path=req.getServletContext().getRealPath("/")+"pic"+File.separator+user.getProfile();
+			String Oldpath=req.getServletContext().getRealPath("/")+"pic"+File.separator+oldProfile;
 			System.out.println("path:"+path);
 			System.out.println("Old path:"+Oldpath);
 			if(!oldProfile.equals("default.png")) {

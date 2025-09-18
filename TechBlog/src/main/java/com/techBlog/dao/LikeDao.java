@@ -39,6 +39,21 @@ public class LikeDao {
 		}
 		return count;
 	}
+	public int countCommentOnPosts(int pid) {
+		int count=0;
+		try {
+			String q="select count(*) from comments where PId=?";
+			PreparedStatement pt=con.prepareStatement(q);
+			pt.setInt(1, pid);
+			ResultSet set=pt.executeQuery();
+			if(set.next()) {
+				count=set.getInt("count(*)");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
 	public boolean userLikedOrNot(int pid,int uid) {
 		boolean f=false;
 		try {

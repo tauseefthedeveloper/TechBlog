@@ -162,6 +162,7 @@ function doDeletePost(postId, userId, event) {
 	const d = {
 		postId: postId,
 		userId: userId,
+		commentId:0,
 		operation: 'delete',
 	}
 	$.ajax({

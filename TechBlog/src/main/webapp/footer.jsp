@@ -37,7 +37,8 @@
 
     <hr class="bg-light">
     <div class="text-center pb-3">
-      &copy; 2025 TechBlog. All rights reserved.
+     Copyright &copy; 2025 TechBlog. All rights reserved. <br>
+      <a href="https://github.com/tauseefthedeveloper" class="text-white">Meet The Developer</a>
     </div>
   </div>
 </footer>

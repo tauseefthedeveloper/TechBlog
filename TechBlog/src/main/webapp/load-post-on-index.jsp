@@ -44,7 +44,7 @@ for (Posts p : post) {
 			</a> <a href="#!" onclick="loginThenRead()"
 				class="btn btn-outline-primary btn-sm">Read More...</a> <a href="#!"
 				onclick="loginThenComment()" class="btn btn-outline-primary btn-sm">
-				<i class="fa fa-commenting-o"></i> <span>20</span>
+				<i class="fa fa-commenting-o"></i> <span><%=like.countCommentOnPosts(p.getPid())%></span>
 			</a>
 			<%
 			} else {
