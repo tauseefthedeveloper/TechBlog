@@ -1,7 +1,7 @@
 <%@ page import="com.techBlog.entities.User"%>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark primary-background">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/TechBlog">
+        <a class="navbar-brand" href="/https://techblog-q9z7.onrender.com/">
             <span class="fa fa-file-code-o"></span>&nbsp;TechBlog
         </a>
 
