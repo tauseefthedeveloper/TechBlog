@@ -1,5 +1,5 @@
 <!-- Footer Start -->
-<footer class="bg-dark text-white pt-4 mt-4">
+<footer class="bg-dark text-white pt-4 mt-6" style="margin-top:75px">
   <div class="container">
     <div class="row">
 

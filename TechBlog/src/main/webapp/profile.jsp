@@ -120,7 +120,7 @@ if (user == null) {
 	</nav>
 	<div class="container-fluid p-0 m-0 banner-background"></div>
 	<!-- end of navbar -->
-	<div class="All-detaile-of-the-content">
+	<div class="All-detaile-of-the-content container">
 		<div class="container text-center">
 			<%
 			Message msg = (Message) session.getAttribute("message");

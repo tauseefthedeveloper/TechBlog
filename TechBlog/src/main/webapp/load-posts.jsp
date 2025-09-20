@@ -8,68 +8,75 @@
 
 <%
 User user = (User) session.getAttribute("current_user");
+
+// Slight delay for loader effect
 Thread.sleep(500);
 
 CommentDao commDao = new CommentDao(ConnectionProvider.getConnection());
 PostDao postDao = new PostDao();
 LikeDao likeDao = new LikeDao(ConnectionProvider.getConnection());
 
-List<Posts> post = null;
+List<Posts> postList = null;
 int cId = Integer.parseInt(request.getParameter("catId"));
+
 if (cId == 0) {
-    post = postDao.getAllPost();
+    postList = postDao.getAllPost();
 } else {
-    post = postDao.getPostByCatId(cId);
+    postList = postDao.getPostByCatId(cId);
 }
 
-if (post.size() == 0) {
-    out.println("<h3 style='color:#f78993;'>No posts are available in this category.</h3>");
+// If no posts found
+if (postList == null || postList.isEmpty()) {
+    out.println("<div class='alert alert-warning text-center'>No posts are available in this category.</div>");
     return;
 }
 
-for (Posts p : post) {
+// Loop through posts
+for (Posts p : postList) {
 %>
-<div class="col-md-6 mb-2 border-rounded">
+<div class="col-md-6 mb-2">
     <div class="card">
         <div class="card-body">
             <img class="card-img-top" style="height: 170px; object-fit: cover;"
-                 alt="" src="<%=p.getPic() != null && !p.getPic().isEmpty() ? p.getPic() : "posts_pic/default.png" %>">
-            <b><%=p.getTitle()%></b>
-            <p><%=p.getContent()%></p>
+                 alt="Post Image"
+                 src="<%= p.getPic() != null && !p.getPic().isEmpty() ? p.getPic() : "posts_pic/default.png" %>">
+            <b><%= p.getTitle() %></b>
+            <p><%= p.getContent() %></p>
         </div>
         <div class="card-footer text-center">
-            <a href="#!" onclick="doLike(<%=p.getPid()%>,<%=user.getId()%>,this)" class="btn btn-outline-primary btn-sm">
+            <a href="#!" onclick="doLike(<%=p.getPid()%>,<%=user != null ? user.getId() : 0 %>,this)" 
+               class="btn btn-outline-primary btn-sm">
                 <i class="fa fa-thumbs-o-up"></i>
                 <span class="like-count"><%=likeDao.countLikesOnPosts(p.getPid())%></span>
             </a>
+
             <a href="show_blog_details.jsp?postId=<%=p.getPid()%>" class="btn btn-outline-primary btn-sm">Read More...</a>
+
             <a href="show_blog_details.jsp?postId=<%=p.getPid()%>" class="btn btn-outline-primary btn-sm">
                 <i class="fa fa-commenting-o"></i>
                 <span><%=commDao.countCommentOnPosts(p.getPid())%></span>
             </a>
-            <%
-            if (user != null && p.getUserId() == user.getId()) {
-            %>
-            <a href="#!" id="edit-btnonpost" 
-               data-id="<%=p.getPid()%>"
-               data-cid="<%=p.getCatId()%>" 
-               data-title="<%=p.getTitle()%>"
-               data-content="<%=p.getContent()%>" 
-               data-code="<%=p.getCode()%>"
-               data-pic="<%=p.getPic()%>" 
-               data-bs-toggle="modal" data-bs-target="#edit-post-modal"
-               class="btn btn-outline-primary btn-sm"> <i class="fa fa-edit"></i>
-            </a>
-            <a href="#!" id="delete-btn"
-               onclick="doDeletePost(<%=p.getPid()%>,<%=user.getId()%>,event)"
-               class="btn btn-outline-primary btn-sm"> <i class="fa fa-trash"></i>
-            </a>
-            <%
-            }
-            %>
+
+            <% if (user != null && p.getUserId() == user.getId()) { %>
+                <a href="#!" id="edit-btnonpost"
+                   data-id="<%=p.getPid()%>"
+                   data-cid="<%=p.getCatId()%>"
+                   data-title="<%=p.getTitle()%>"
+                   data-content="<%=p.getContent()%>"
+                   data-code="<%=p.getCode()%>"
+                   data-pic="<%=p.getPic()%>"
+                   data-bs-toggle="modal" data-bs-target="#edit-post-modal"
+                   class="btn btn-outline-primary btn-sm">
+                    <i class="fa fa-edit"></i>
+                </a>
+
+                <a href="#!" id="delete-btn"
+                   onclick="doDeletePost(<%=p.getPid()%>,<%=user.getId()%>,event)"
+                   class="btn btn-outline-primary btn-sm">
+                    <i class="fa fa-trash"></i>
+                </a>
+            <% } %>
         </div>
     </div>
 </div>
-<%
-} // end for-loop
-%>
+<% } // end for-loop %>
