@@ -14,7 +14,7 @@
       <div class="col-md-4 mb-3">
         <h5>Quick Links</h5>
         <ul class="list-unstyled">
-          <li><a href="https://techblog-q9z7.onrender.com/" class="text-white text-decoration-none">Home</a></li>
+          <li><a href="https://techblog-5e81.onrender.com/" class="text-white text-decoration-none">Home</a></li>
           <li><a href="contact.jsp" class="text-white text-decoration-none">Contact</a></li>
           <li><a href="profile.jsp" class="text-white text-decoration-none">Profile</a></li>
         </ul>
