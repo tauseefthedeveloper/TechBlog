@@ -54,8 +54,9 @@
                 <li class="nav-item">
                     <a href="#!" class="nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Welcome, <%= user.getName() %>
-                        <img src="pic/<%= user.getProfile() %>" alt="Profile"
-                             style="height: 25px; width: 25px; border-radius: 50%; margin-left: 5px;">
+                        <img src="<%= user.getProfile() != null && !user.getProfile().isEmpty() ? user.getProfile() : "pic/default.png" %>" 
+     						alt="Profile" style="height:25px; width:25px; border-radius:50%; margin-left:5px;">
+		
                     </a>
                 </li>
                 <li class="nav-item">

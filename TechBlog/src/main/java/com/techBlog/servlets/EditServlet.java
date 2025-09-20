@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 import com.techBlog.dao.EditDao;
+import com.techBlog.helper.CloudinaryHelper;
 import com.techBlog.helper.ConnectionProvider;
 
 import jakarta.servlet.ServletException;
@@ -29,19 +30,31 @@ public class EditServlet extends HttpServlet {
         String oldPic = request.getParameter("old_pic");
 
         Part part = request.getPart("new_pic");
-        String newPicName = null;
+        String imageUrl=oldPic;
+        
         if (part != null && part.getSize() > 0) {
-            newPicName = part.getSubmittedFileName();
-            String path = request.getServletContext().getRealPath("/") + "posts_pic" + File.separator + newPicName;
-            try (InputStream is = part.getInputStream()) {
-                Files.copy(is, Paths.get(path), StandardCopyOption.REPLACE_EXISTING);
+        	String uploadDir = request.getServletContext().getRealPath("/") + "posts_pic";
+            File uploadFolder = new File(uploadDir);
+            if (!uploadFolder.exists()) {
+                uploadFolder.mkdirs();
             }
-        } else {
-            newPicName = oldPic;
+
+            File tempFile = new File(uploadFolder, part.getSubmittedFileName());
+            try (InputStream input = part.getInputStream()) {
+                Files.copy(input, tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            }
+
+            try {
+                // Upload to Cloudinary and get the hosted URL
+                imageUrl = CloudinaryHelper.uploadImage(tempFile.getAbsolutePath());
+            } catch (Exception e) {
+                e.printStackTrace();
+                tempFile.delete(); 
+            }
         }
 
         EditDao dao = new EditDao(ConnectionProvider.getConnection());
-        boolean updated = dao.updatePost(postId, title, content, code, newPicName);
+        boolean updated = dao.updatePost(postId, title, content, code, imageUrl);
 
         if (updated) {
         	response.getWriter().println(updated);

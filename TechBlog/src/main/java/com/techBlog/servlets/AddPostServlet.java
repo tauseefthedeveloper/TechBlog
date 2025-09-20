@@ -2,10 +2,13 @@ package com.techBlog.servlets;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 
 import com.techBlog.dao.PostDao;
 import com.techBlog.entities.Posts;
 import com.techBlog.entities.User;
+import com.techBlog.helper.CloudinaryHelper;
 import com.techBlog.helper.Helper;
 
 import jakarta.servlet.ServletException;
@@ -32,18 +35,36 @@ public class AddPostServlet extends HttpServlet{
 		String content=req.getParameter("content");
 		String code=req.getParameter("code");
 		Part pic=req.getPart("post_pic");
+		
 		//get the current user
 		HttpSession s=req.getSession();
 		User user=(User)s.getAttribute("current_user");
 		int userId=user.getId();
 
-		Posts p=new Posts(title,content,code,null,pic.getSubmittedFileName(),CId,userId);
+		String imageUrl=null;
+		if(pic !=null && pic.getSize()>0) {
+			 String uploadDir = req.getServletContext().getRealPath("/") + "posts_pic";
+	            File uploadFolder = new File(uploadDir);
+	            if (!uploadFolder.exists()) {
+	                uploadFolder.mkdirs();
+	            }
+
+	            File tempFile = new File(uploadFolder, pic.getSubmittedFileName());
+	            try (InputStream input = pic.getInputStream()) {
+	                Files.copy(input, tempFile.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+	            }
+	            
+	            try {
+	                imageUrl = CloudinaryHelper.uploadImage(tempFile.getAbsolutePath());
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	                tempFile.delete();
+	            }
+		}
+		Posts p=new Posts(title,content,code,null,imageUrl,CId,userId);
 		PostDao postDao=new PostDao();
 		if(postDao.savePosts(p)) {
-			String path=req.getServletContext().getRealPath("/")+"posts_pic"+File.separator+pic.getSubmittedFileName();
-			Helper.saveFile(pic.getInputStream(), path);
 			resp.getWriter().println("done");
-			resp.sendRedirect("profile.jsp");
 		}else {
 			resp.getWriter().println("error");
 		}

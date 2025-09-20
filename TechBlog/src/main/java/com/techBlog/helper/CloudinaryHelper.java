@@ -1,18 +1,21 @@
 package com.techBlog.helper;
 
+import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.tomcat.jakartaee.commons.lang3.ObjectUtils;
+import com.cloudinary.utils.ObjectUtils;
+
+import com.cloudinary.Cloudinary;
 
 public class CloudinaryHelper {
     private static Cloudinary cloudinary;
 
     static {
-        cloudinary = new Cloudinary(ObjectUtils.asMap(
-                "cloud_name", "dzhfz9gic",
-                "api_key", "732862283762418",
-                "api_secret", "z55ymsnYmaJt1FIQ31XiADj62xE"
-        ));
+    	Map<String, String> config = new HashMap<>();
+    	config.put("cloud_name", "dzhfz9gic");
+    	config.put("api_key", "732862283762418");
+    	config.put("api_secret", "z55ymsnYmaJt1FIQ31XiADj62xE");
+        cloudinary = new Cloudinary(config);
     }
 
     public static String uploadImage(String filePath) throws Exception {

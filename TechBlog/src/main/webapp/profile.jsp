@@ -102,9 +102,9 @@ if (user == null) {
 						%> <%
  } else {
  %> <a href="#!" class="nav-link" data-bs-toggle="modal"
-						data-bs-target="#exampleModal">Welcome, <%=user.getName()%> <img
-							src="pic/<%=user.getProfile()%>" alt="Profile"
-							style="height: 25px; width: 25px; border-radius: 50%; margin-right: 0px;">
+						data-bs-target="#exampleModal">Welcome, <%=user.getName()%> 
+						<img src="<%= user.getProfile() != null && !user.getProfile().isEmpty() ? user.getProfile() : "pic/default.png" %>" 
+     						alt="Profile" style="height:25px; width:25px; border-radius:50%; margin-left:5px;">
 					</a>
 					</li>
 					<li class="nav-item"><a href="Logout" class="nav-link"> <span
@@ -183,9 +183,9 @@ if (user == null) {
 					</div>
 					<div class="modal-body">
 						<div class="container text-center">
-							<img alt="image not found" src="pic/<%=user.getProfile()%>"
-								class="img-fluid"
-								style="border-radius: 50%; width: 110px; height: 110px; object-fit: cover;">
+							<img src="<%= user.getProfile() != null && !user.getProfile().isEmpty() ? user.getProfile() : "pic/default.png" %>" 
+     						alt="Profile" style="border-radius: 50%; width: 110px; height: 110px; object-fit: cover;">
+								
 							<h5 class="modal-title " id="exampleModalLabel"><%=user.getName()%></h5>
 							<div id="profile-details">
 								<table class="table">
@@ -545,11 +545,13 @@ if (user == null) {
 				processData : false,
 				contentType : false,
 				success : function(data, textStatus, jqXHR) {
-					if (data.trim() == "done") {
+					if (data.trim() === "done") {
 						Swal.fire({
 							title : "Post saved successfully!",
 							icon : "success",
 							draggable : true
+						}).then(()=>{
+							location.reload();
 						});
 					} else {
 						Swal.fire({
