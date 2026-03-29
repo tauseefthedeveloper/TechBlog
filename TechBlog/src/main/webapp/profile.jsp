@@ -76,7 +76,7 @@ if (user == null) {
 	<nav
 		class="navbar navbar-expand-lg navbar-dark bg-dark primary-background">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="https://techblog-5e81.onrender.com/"><span
+			<a class="navbar-brand" href="/TechBlog"><span
 				class="fa fa-file-code-o"></span>&nbsp;TechBlog</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -87,7 +87,7 @@ if (user == null) {
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="https://techblog-5e81.onrender.com/"><span class="fa fa-home"></span>
+						aria-current="page" href="/TechBlog"><span class="fa fa-home"></span>
 							Home</a></li>
 					<li class="nav-item"><a class="nav-link" href="contact.jsp"><span
 							class="fa fa-phone"></span> Contact</a></li>
